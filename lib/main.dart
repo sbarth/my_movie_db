@@ -1,7 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:my_movie_db/presentation/movie_list.dart';
+
+const routeMovieList = "movie/list";
+const routeMovieDetail = "movie/detail";
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MyMovieDatabaseApp());
+}
+
+class MyMovieDatabaseApp extends StatelessWidget {
+  const MyMovieDatabaseApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "My Movie Database",
+      theme: ThemeData(
+        useMaterial3: true,
+        scaffoldBackgroundColor: Colors.white,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.teal,
+          brightness: Brightness.dark,
+        ),
+      ),
+      initialRoute: routeMovieList,
+      routes: {
+        routeMovieList: (context) => MovieList()
+      },
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
