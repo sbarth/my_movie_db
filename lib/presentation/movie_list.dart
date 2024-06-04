@@ -37,13 +37,31 @@ class MovieList extends StatelessWidget {
               } else if (state is MovieListStateDownloadMovieTitlesFailed) {
                 return const Text("Something went wrong");
               } else if (state is MovieListStateDownloadMovieTitlesFinished) {
-                return const Text("Success");
+                return ListView.separated(
+                  itemCount: state.movies.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: Image.network(state.movies[index].poster),
+                      title: Text(state.movies[index].name),
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const Divider();
+                  },
+                );
               } else {
                 return const Text("Should not reach here!");
               }
             }
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton.small(
+        onPressed: () {
+          // Cloud.addMovie(Movie(name: "awd", year: 1999, imdbId: "imdbId", type: "type", poster: "poster"));
+          // bloc.add(MovieListDownloadMoviesEvent());
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
