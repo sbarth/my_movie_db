@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:my_movie_db/presentation/movie_list.dart';
+import 'package:my_movie_db/providers/movie_provider.dart';
+import 'package:my_movie_db/widgets/add_movie.dart';
+import 'package:my_movie_db/widgets/movie_list.dart';
+import 'package:provider/provider.dart';
 
 const routeMovieList = "movie/list";
+const routeMovieAdd = "movie/add";
 const routeMovieDetail = "movie/detail";
 
 void main() {
@@ -13,20 +17,24 @@ class MyMovieDatabaseApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "My Movie Database",
-      theme: ThemeData(
-        useMaterial3: true,
-        scaffoldBackgroundColor: Colors.white,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.teal,
-          brightness: Brightness.dark,
-        ),
+    return ChangeNotifierProvider(
+      create: (context) => MovieProvider(),
+      child: MaterialApp(
+        title: "My Movie Database",
+        // theme: ThemeData(
+        //   useMaterial3: true,
+        //   scaffoldBackgroundColor: Colors.white,
+        //   colorScheme: ColorScheme.fromSeed(
+        //     seedColor: Colors.teal,
+        //     brightness: Brightness.dark,
+        //   ),
+        // ),
+        initialRoute: routeMovieList,
+        routes: {
+          routeMovieList: (context) => MovieListView(),
+          routeMovieAdd: (context) => AddMovieView(),
+        },
       ),
-      initialRoute: routeMovieList,
-      routes: {
-        routeMovieList: (context) => MovieList()
-      },
     );
   }
 }
